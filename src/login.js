@@ -2,20 +2,18 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import orangeSierraLeone from "./assets/orangeSierraLeone.png";
 function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     axios.post('/login', {
-      username: username,
+      email: email,
       password: password
     })
       .then(response => {
         if (response.status === 200) {
-          // If the authentication is successful, redirect to the home page
           window.location.href = '/dashboard';
         } else {
           setErrorMessage('Authentication failed.');
@@ -37,7 +35,11 @@ function Login() {
             alt="Orange Sierra Leone"
           />
           <h6 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Note that your login Password is your Windows login
+            {errorMessage}
+          </h6>
+          <hr />
+          <h6 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            Test Active Directory UI
           </h6>
 
         </div>
@@ -49,8 +51,8 @@ function Login() {
                 Email address
               </label>
               <input
-                value={username}
-                onChange={e => setUsername(e.target.value)}
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 id="email-address"
                 name="email"
                 type="email"
@@ -81,29 +83,22 @@ function Login() {
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-              />
+
               <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                Remember me
+                Note that your login Password is your Windows login
               </label>
             </div>
-
             <div>
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  {/* <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" /> */}
                 </span>
                 Sign in
               </button>
             </div>
-            </div>
+          </div>
         </form>
       </div>
     </div>
